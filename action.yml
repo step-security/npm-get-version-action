@@ -13,6 +13,6 @@ outputs:
     description: 'Current version defined in the package.json file'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://ghcr.io/step-security/npm-get-version-action:v1.3.2@sha256:9f92683d1b262d7b56e58484a6792768207fcb8a7c25dd6cf6ea1e43ded6ddd0' #v1.3.2
   args:
     - ${{ inputs.path }}
