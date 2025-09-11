@@ -6,14 +6,17 @@ RESPONSE=$(curl --max-time 3 -s -w "%{http_code}" "$API_URL" -o /dev/null) || tr
 CURL_EXIT_CODE=${?}
 
 # Check if the response code is not 200
-if [ $CURL_EXIT_CODE -ne 0 ] || [ "$RESPONSE" != "200" ]; then
-    if [ -z "$RESPONSE" ] || [ "$RESPONSE" == "000" ] || [ $CURL_EXIT_CODE -ne 0 ]; then
+if [ $CURL_EXIT_CODE -ne 0 ]; then
     echo "Timeout or API not reachable. Continuing to next step."
-    else
+elif [ "$RESPONSE" = "200" ]; then
+    :
+elif [ "$RESPONSE" = "403" ]; then
     echo "Subscription is not valid. Reach out to support@stepsecurity.io"
     exit 1
-    fi
+else
+    echo "Timeout or API not reachable. Continuing to next step."
 fi
+
 PACKAGE_JSON_PATH="${1-.}"
 echo "Reading package.json from ${PACKAGE_JSON_PATH}/package.json"
 PACKAGE_VERSION=$(cat ${PACKAGE_JSON_PATH}/package.json | jq '.version' | tr -d '"')
