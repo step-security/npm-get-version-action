@@ -1,4 +1,4 @@
-FROM alpine:3.19@sha256:3be987e6cde1d07e873c012bf6cfe941e6e85d16ca5fc5b8bedc675451d2de67
+FROM alpine:3.22@sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412
 
 RUN apk add --no-cache ca-certificates bash jq curl
 
